@@ -1,9 +1,6 @@
 pipeline {
     agent any
-    parameters {
-        booleanParam(defaultValue: false, description: 'whether to Run the Code', name: 'RUN')
-        text(defaultValue: 'Development', description: 'Type of build', name: 'BUILD_TYPE')
-    } 
+
     stages {
         stage('Build') {
             steps { 
@@ -22,5 +19,5 @@ pipeline {
         //         } 
         //     } 
         // }
-}
+    }
 }
