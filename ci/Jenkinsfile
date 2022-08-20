@@ -12,12 +12,12 @@ pipeline {
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
         registryCredential = "akino-aws"   
     }
-//     stages {
-//         stage('Build') {
-//             steps { 
-//                 sh "pip install -r requirements.txt"
-//             }
-//         }
+    stages {
+        stage('Test') {
+            steps { 
+                sh "echo test..."
+            }
+        }
 //         // stage('Package') { 
 //         //     when { 
 //         //         expression { env.GIT_BRANCH == 'main' } 
