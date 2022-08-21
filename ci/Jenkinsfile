@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        AWS_ACCOUNT_ID=env.AWS_ACCOUNT_ID_AKINO
+        AWS_ACCOUNT_ID="${env.AWS_ACCOUNT_ID_AKINO}"
         AWS_DEFAULT_REGION="us-west-1"
         CLUSTER_NAME="default"            // ECS Cluster
         SERVICE_NAME="simple-flask-service"            // the Service name in the ECS Cluster
