@@ -5,5 +5,3 @@ app = Flask(__name__)
 def hello_world():
     return '<html><body><h1>Hello World!!</h1></body></html>'
  
-if __name__ == '__main__':
-    app.run(port=5000)
