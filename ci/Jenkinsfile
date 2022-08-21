@@ -18,6 +18,11 @@ pipeline {
                 sh "echo test..."
             }
         }
+        stage('test2') {
+            steps { 
+                sh "pwd"
+            }
+        }
         // Building Docker images
         stage('Building image') {
             steps{
