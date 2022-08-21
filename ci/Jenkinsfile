@@ -10,7 +10,7 @@ pipeline {
         IMAGE_REPO_NAME="197085648105.dkr.ecr.us-west-1.amazonaws.com/devops_assignment"         // the ECR Repository URL
         IMAGE_TAG="${env.BUILD_ID}"
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
-        registryCredential = "akino-aws"   
+        registryCredential = "akino-aws"
     }
     stages {
         stage('Test') {
@@ -18,6 +18,34 @@ pipeline {
                 sh "echo test..."
             }
         }
+        // Building Docker images
+        stage('Building image') {
+            steps{
+                script {
+                    dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+                }
+            }
+        }
+        // Uploading Docker images into AWS ECR
+        stage('Pushing to ECR') {
+            steps{  
+                script {
+                    docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:" + registryCredential) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps{
+                withAWS(credentials: registryCredential, region: "${AWS_DEFAULT_REGION}") {
+                    script {
+                        sh './script.sh'
+                    }
+                } 
+            }
+        }      
 //         // stage('Package') { 
 //         //     when { 
 //         //         expression { env.GIT_BRANCH == 'main' } 
