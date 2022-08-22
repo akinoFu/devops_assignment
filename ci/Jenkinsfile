@@ -44,18 +44,6 @@ pipeline {
                     }
                 } 
             }
-        }      
-//         // stage('Package') { 
-//         //     when { 
-//         //         expression { env.GIT_BRANCH == 'main' } 
-//         //     } 
-//         //     steps { 
-//         //         withCredentials([string(credentialsId: 'akino_dockerhub', variable: 'TOKEN')]) { 
-//         //             sh "docker login -u 'akinofu' -p '$TOKEN' docker.io" 
-//         //             sh "docker build --tag akinofu/${dockerRepoName}:latest ${directoryName}" 
-//         //             sh "docker push akinofu/${dockerRepoName}:latest" 
-//         //         } 
-//         //     } 
-//         // }
+        }
     }
 }
