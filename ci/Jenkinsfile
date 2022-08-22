@@ -3,11 +3,11 @@ pipeline {
     environment {
         AWS_ACCOUNT_ID="${env.AWS_ACCOUNT_ID_AKINO}"
         AWS_DEFAULT_REGION="us-west-1"
-        CLUSTER_NAME="default"            // ECS Cluster
+        CLUSTER_NAME="simple-flask-app"            // ECS Cluster
         SERVICE_NAME="simple-flask-service"            // the Service name in the ECS Cluster
         TASK_DEFINITION_NAME="first-run-task-definition"    // the Task name in the ECS Cluster
         DESIRED_COUNT="1"                   // the number of tasks in the ECS Cluster
-        IMAGE_REPO_NAME="197085648105.dkr.ecr.us-west-1.amazonaws.com/devops_assignment"         // the ECR Repository URL
+        IMAGE_REPO_NAME="devops_assignment"         // the ECR Repository URL
         IMAGE_TAG="${env.BUILD_ID}"
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
         registryCredential = "aws-admin-user"
