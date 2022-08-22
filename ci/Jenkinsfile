@@ -10,19 +10,9 @@ pipeline {
         IMAGE_REPO_NAME="197085648105.dkr.ecr.us-west-1.amazonaws.com/devops_assignment"         // the ECR Repository URL
         IMAGE_TAG="${env.BUILD_ID}"
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
-        registryCredential = "akino-aws"
+        registryCredential = "aws-admin-user"
     }
     stages {
-        stage('Test') {
-            steps { 
-                sh "echo test..."
-            }
-        }
-        stage('test2') {
-            steps { 
-                sh "pwd"
-            }
-        }
         // Building Docker images
         stage('Building image') {
             steps{
