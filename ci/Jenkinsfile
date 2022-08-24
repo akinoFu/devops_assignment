@@ -3,18 +3,17 @@ pipeline {
     environment {
         AWS_ACCOUNT_ID="${env.AWS_ACCOUNT_ID_AKINO}"
         AWS_DEFAULT_REGION="us-west-1"
-        CLUSTER_NAME="simple-flask-app"            // ECS Cluster
+        CLUSTER_NAME="simple-flask-app"                     // ECS Cluster
         SERVICE_NAME="devops_assignment-service"            // the Service name in the ECS Cluster
         TASK_DEFINITION_NAME="first-run-task-definition"    // the Task name in the ECS Cluster
-        DESIRED_COUNT="2"                   // the number of tasks in the ECS Cluster
-        IMAGE_REPO_NAME="devops_assignment"         // the ECR Repository URL
+        DESIRED_COUNT="2"                                   // the number of tasks in the ECS Cluster
+        IMAGE_REPO_NAME="devops_assignment"                 // the ECR Repository URL
         IMAGE_TAG="${env.BUILD_ID}"
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
         registryCredential = "aws-admin-user"
     }
     stages {
-        // Building Docker images
-        stage('Building image') {
+        stage('Build the Docker image') {
             steps{
                 sh 'echo Building...'
                 script {
@@ -22,8 +21,8 @@ pipeline {
                 }
             }
         }
-        // Uploading Docker images into AWS ECR
-        stage('Pushing to ECR') {
+
+        stage('Push the image to ECR') {
             steps{
                 sh 'echo Pushing...'
                 script {
@@ -34,7 +33,7 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy the latest image on ECS') {
             steps{
                 sh 'echo Deploying...'
                 withAWS(credentials: registryCredential, region: "${AWS_DEFAULT_REGION}") {
