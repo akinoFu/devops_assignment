@@ -6,6 +6,10 @@ COPY requirements.txt requirements.txt
 
 RUN pip3 install -r requirements.txt
 
+RUN echo pwd
+
 COPY . .
+
+RUN cat /app/app.py
 
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
